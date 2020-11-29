@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tasks>
+	<task active="true" end="" repeat="0" repeated="false" start="" time="55">Wake up</task>
+	<task active="true" end="" repeat="0" repeated="false" start="" time="10">Brush Teeth</task>
+	<task active="false" end="1000" repeat="1" repeated="true" start="0" time="0">Have a breakfast</task>
+	<task active="true" end="" repeat="0" repeated="false" start="" time="50">Read a book</task>
+	<task active="true" end="" repeat="0" repeated="false" start="" time="60">Have a lunch</task>
+	<task active="true" end="58" repeat="2" repeated="true" start="51" time="51">Do shopping</task>
+</tasks>
+
