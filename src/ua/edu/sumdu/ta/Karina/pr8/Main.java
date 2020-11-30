@@ -9,6 +9,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException, XMLStreamException
     {
-        TaskXMLSerializer.test();
+        //TaskXMLSerializer.test();
+        HTTP.HttpGet(HTTP.xml);
     }
 }
