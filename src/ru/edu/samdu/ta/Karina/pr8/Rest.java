@@ -127,37 +127,36 @@ public class Rest
         return  list;
     }
 
-    public static void /*List<Food>*/ JsonToFood() throws IOException, ParseException {
+    public static List<Food> JsonToFood() throws IOException, ParseException {
         final String fileName = "FoodJson.json";
         Object obj = new JSONParser().parse(new FileReader(fileName));
         JSONObject jsonObject1 = (JSONObject) obj;
         JSONObject jsonObject2 = (JSONObject) jsonObject1.get("breakfast_menu");
         JSONArray food = ( JSONArray) jsonObject2.get("food");
+        JSONArray numbers = ( JSONArray) jsonObject2.get("numbers");
 
         LinkedList<Food> list = new LinkedList<>();
         list.add(new Food());
         int index = 0;
 
-        Iterator Itr = food.iterator();
-        while (Itr.hasNext()) {
-            JSONObject jsonObject = (JSONObject) Itr.next();
+        Iterator itrFood = food.iterator();
+        //Iterator itrNumbers = numbers.iterator();
+        while (itrFood.hasNext()) {
+            JSONObject jsonObject = (JSONObject) itrFood.next();
+            //JSONObject num = (JSONObject) itrNumbers.next();
 
             list.get(index).name = (String) jsonObject.get("name");
             list.get(index).price = (String) jsonObject.get("price");
             list.get(index).description = (String) jsonObject.get("description");
             list.get(index).calories = String.valueOf(jsonObject.get("calories"));
+            list.get(index).numbers = String.valueOf(numbers.get(index));
 
             list.add(new Food());
             index++;
         }
         list.remove(index);
 
-        System.out.println(list.get(4).name);
-        System.out.println(list.get(4).price);
-        System.out.println(list.get(4).description);
-        System.out.println(list.get(4).calories);
-
-        //return list;
+        return list;
     }
 
     public static void XmlWork(List<Food> list)
@@ -194,6 +193,37 @@ public class Rest
         System.out.println();
     }
 
+    public static void JsonWork(List<Food> list)
+    {
+        System.out.println("List of dishes: ");
+        for (int i = 0; i < list.size(); i++)
+        {
+            System.out.println(list.get(i).name);
+        }
+        System.out.println();
 
+        System.out.println("Price for dishes with calorie content less than 700: ");
+        for (int i = 0; i < list.size(); i++)
+        {
+            if(Integer.parseInt(list.get(i).calories) < 700)
+            {
+                System.out.println(list.get(i).price);
+            }
+        }
+        System.out.println();
+
+        int max = 0;
+        int index = 0;
+        for (int i = 0; i < list.size(); i++)
+        {
+            if(Integer.parseInt(list.get(i).numbers) > max)
+            {
+                max = Integer.parseInt(list.get(i).numbers);
+                index = i;
+            }
+        }
+        System.out.println("The maximum number from the numbers array: " + list.get(index).numbers);
+        System.out.println();
+    }
 
 }

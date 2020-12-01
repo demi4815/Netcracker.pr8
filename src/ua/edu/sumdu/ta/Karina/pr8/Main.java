@@ -9,10 +9,9 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException, XMLStreamException, ParseException {
-        //TaskXMLSerializer.test();
-        //Rest.getXmlFile(Rest.HttpConnectionAndSb(Rest.xml));
-        //Rest.getJsonFile(Rest.HttpConnectionAndSb(Rest.json));
-        //Rest.XmlWork(Rest.XmlToFood());
-        Rest.JsonToFood();
+        Rest.getXmlFile(Rest.HttpConnectionAndSb(Rest.xml));
+        Rest.getJsonFile(Rest.HttpConnectionAndSb(Rest.json));
+        Rest.XmlWork(Rest.XmlToFood());
+        Rest.JsonWork(Rest.JsonToFood());
     }
 }
