@@ -4,12 +4,8 @@ import java.io.*;
 import java.net.URL;
 import java.net.HttpURLConnection;
 import java.util.LinkedList;
+import java.util.List;
 
-import org.apache.commons.lang.*;
-
-
-
-import ua.edu.sumdu.ta.Karina.pr8.*;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -21,34 +17,24 @@ public class HTTP
     static public String xml ="http://www.mocky.io/v2/5bebe91f3300008500fbc0e3";
     static public String json = "http://www.mocky.io/v2/5bed52fd3300004c00a2959d";
 
-    public static void HttpGet(String request) throws IOException {
+    public static StringBuilder HttpConnectionAndSb(String request) throws IOException {
 
         HttpURLConnection connection = (HttpURLConnection) new URL(request).openConnection();
-
         connection.setRequestMethod("GET");
-
         connection.connect();
+
+        StringBuilder sb = new StringBuilder();
 
         if(HttpURLConnection.HTTP_OK == connection.getResponseCode())
         {
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder sb = new StringBuilder();
+
             String line;
 
             while ((line = in.readLine()) != null)
             {
                 sb.append(line);
                 sb.append("\n");
-            }
-
-            File file = new File("FoodXml.xml");
-            BufferedWriter writer = null;
-
-            try {
-                writer = new BufferedWriter(new FileWriter(file));
-                writer.write(sb.toString());
-            } finally {
-                if (writer != null) writer.close();
             }
         }
         else
@@ -57,17 +43,44 @@ public class HTTP
         }
 
         System.out.println("Header: " + connection.getHeaderField("X-Ta-Course-Example-Header"));
+        System.out.println();
 
         connection.disconnect();
+
+        return sb;
     }
 
-    public static void XmlWork() throws FileNotFoundException, XMLStreamException
-    {
-        LinkedList<Food> list = new LinkedList<>();
+    public static void getXmlFile(StringBuilder sb) throws IOException {
+        File fileXml = new File("FoodXml.xml");
+        BufferedWriter writerXML = null;
 
+        try {
+            writerXML = new BufferedWriter(new FileWriter(fileXml));
+            writerXML.write(sb.toString());
+        } finally {
+            if (writerXML != null) writerXML.close();
+        }
+    }
+    public static void getJsonFile(StringBuilder sb) throws IOException
+    {
+        File fileJson = new File("FoodJson.json");
+        BufferedWriter writerJson = null;
+
+        try {
+            writerJson = new BufferedWriter(new FileWriter(fileJson));
+            writerJson.write(sb.toString());
+        } finally {
+            if (writerJson != null) writerJson.close();
+        }
+    }
+
+    public static List<Food> XmlToFood() throws FileNotFoundException, XMLStreamException
+    {
         final String fileName = "FoodXml.xml";
         XMLInputFactory factory = XMLInputFactory.newInstance();
         XMLStreamReader reader = factory.createXMLStreamReader(fileName, new FileInputStream(fileName));
+
+        LinkedList<Food> list = new LinkedList<>();
 
         int index = 0;
         int k = 1;
@@ -106,6 +119,11 @@ public class HTTP
             reader.next();
         }
 
+        return  list;
+    }
+
+    public static void XmlWork(List<Food> list)
+    {
         System.out.println("List of dishes: ");
         for (int i = 0; i < list.size(); i++)
         {
@@ -114,7 +132,7 @@ public class HTTP
         System.out.println();
 
         int maxСalorie = 0;
-        index = 0;
+        int index = 0;
         for (int i = 0; i < list.size(); i++)
         {
             if(Integer.parseInt(list.get(i).calories) > maxСalorie)
@@ -127,7 +145,17 @@ public class HTTP
         System.out.println();
 
 
-
+        System.out.println("Price for dishes with calorie content less than 700: ");
+        for (int i = 0; i < list.size(); i++)
+        {
+            if(Integer.parseInt(list.get(i).calories) < 700)
+            {
+                System.out.println(list.get(i).price);
+            }
+        }
+        System.out.println();
     }
+
+
 
 }

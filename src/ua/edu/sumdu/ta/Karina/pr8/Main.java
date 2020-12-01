@@ -10,7 +10,8 @@ public class Main {
     public static void main(String[] args) throws IOException, XMLStreamException
     {
         //TaskXMLSerializer.test();
-        //HTTP.HttpGet(HTTP.xml);
-        HTTP.XmlWork();
+        //HTTP.getXmlFile(HTTP.HttpConnectionAndSb(HTTP.xml));
+        //HTTP.getJsonFile(HTTP.HttpConnectionAndSb(HTTP.json));
+        HTTP.XmlWork(HTTP.XmlToFood());
     }
 }
