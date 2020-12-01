@@ -79,44 +79,55 @@ public class HTTP
             {
                 if(!reader.isWhiteSpace())
                 {
-                    switch (k)
-                    {
-                        case 1:
-                            list.get(index).name = reader.getText();
-                            break;
-                        case 2:
-                            list.get(index).price = reader.getText();
-                            break;
-                        case 3:
-                            list.get(index).description = reader.getText();
-                            break;
-                        case 4:
-                            list.get(index).calories = reader.getText();
-                            break;
+                    switch (k) {
+                        case 1 -> list.get(index).name = reader.getText();
+                        case 2 -> list.get(index).price = reader.getText();
+                        case 3 -> list.get(index).description = reader.getText();
+                        case 4 -> list.get(index).calories = reader.getText();
                     }
+
                     k++;
+
                     if (k >= 5)
                     {
                         k = 1;
                         index++;
                         list.add(new Food());
                     }
-                    //System.out.println( reader.getText());
                 }
             }
 
             if (!reader.hasNext())
             {
+                list.remove(index);
                 break;
             }
 
             reader.next();
         }
 
-        System.out.println(list.get(4).name);
-        System.out.println(list.get(4).price);
-        System.out.println(list.get(4).description);
-        System.out.println(list.get(4).calories);
+        System.out.println("List of dishes: ");
+        for (int i = 0; i < list.size(); i++)
+        {
+            System.out.println(list.get(i).name);
+        }
+        System.out.println();
+
+        int maxСalorie = 0;
+        index = 0;
+        for (int i = 0; i < list.size(); i++)
+        {
+            if(Integer.parseInt(list.get(i).calories) > maxСalorie)
+            {
+                maxСalorie = Integer.parseInt(list.get(i).calories);
+                index = i;
+            }
+        }
+        System.out.println("The name of the dish with the most calories: " + list.get(index).name);
+        System.out.println();
+
+
+
     }
 
 }
