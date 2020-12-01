@@ -69,13 +69,39 @@ public class HTTP
         XMLInputFactory factory = XMLInputFactory.newInstance();
         XMLStreamReader reader = factory.createXMLStreamReader(fileName, new FileInputStream(fileName));
 
+        int index = 0;
+        int k = 1;
+        list.add(new Food());
+
         while (true)
         {
             if (reader.getEventType() == XMLStreamConstants.CHARACTERS)
             {
                 if(!reader.isWhiteSpace())
                 {
-                    System.out.println( reader.getText());
+                    switch (k)
+                    {
+                        case 1:
+                            list.get(index).name = reader.getText();
+                            break;
+                        case 2:
+                            list.get(index).price = reader.getText();
+                            break;
+                        case 3:
+                            list.get(index).description = reader.getText();
+                            break;
+                        case 4:
+                            list.get(index).calories = reader.getText();
+                            break;
+                    }
+                    k++;
+                    if (k >= 5)
+                    {
+                        k = 1;
+                        index++;
+                        list.add(new Food());
+                    }
+                    //System.out.println( reader.getText());
                 }
             }
 
@@ -86,6 +112,11 @@ public class HTTP
 
             reader.next();
         }
+
+        System.out.println(list.get(4).name);
+        System.out.println(list.get(4).price);
+        System.out.println(list.get(4).description);
+        System.out.println(list.get(4).calories);
     }
 
 }

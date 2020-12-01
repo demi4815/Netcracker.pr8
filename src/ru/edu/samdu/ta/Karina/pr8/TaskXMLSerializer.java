@@ -19,6 +19,8 @@ public class TaskXMLSerializer
 
         while (true)
         {
+
+
             if(reader.getEventType() == XMLStreamConstants.CHARACTERS)
             {
                 if (!reader.isWhiteSpace())
