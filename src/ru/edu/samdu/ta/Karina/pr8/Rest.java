@@ -127,25 +127,37 @@ public class Rest
         return  list;
     }
 
-    public static void /*List<Food>*/JsonToFood() throws IOException, ParseException {
+    public static void /*List<Food>*/ JsonToFood() throws IOException, ParseException {
         final String fileName = "FoodJson.json";
         Object obj = new JSONParser().parse(new FileReader(fileName));
         JSONObject jsonObject1 = (JSONObject) obj;
         JSONObject jsonObject2 = (JSONObject) jsonObject1.get("breakfast_menu");
         JSONArray food = ( JSONArray) jsonObject2.get("food");
 
-        //LinkedList<Food> list = new LinkedList<>();
-        //System.out.println(food.toJSONString());
+        LinkedList<Food> list = new LinkedList<>();
+        list.add(new Food());
+        int index = 0;
 
-        Iterator nameItr = food.iterator();
-        System.out.println("Names:");
-        while (nameItr.hasNext()) {
-            JSONObject test = (JSONObject) nameItr.next();
-            System.out.println(test.get("name"));
+        Iterator Itr = food.iterator();
+        while (Itr.hasNext()) {
+            JSONObject jsonObject = (JSONObject) Itr.next();
+
+            list.get(index).name = (String) jsonObject.get("name");
+            list.get(index).price = (String) jsonObject.get("price");
+            list.get(index).description = (String) jsonObject.get("description");
+            list.get(index).calories = String.valueOf(jsonObject.get("calories"));
+
+            list.add(new Food());
+            index++;
         }
+        list.remove(index);
 
-        //return  list;
+        System.out.println(list.get(4).name);
+        System.out.println(list.get(4).price);
+        System.out.println(list.get(4).description);
+        System.out.println(list.get(4).calories);
 
+        //return list;
     }
 
     public static void XmlWork(List<Food> list)
