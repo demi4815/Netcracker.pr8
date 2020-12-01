@@ -10,6 +10,7 @@ public class Main {
     public static void main(String[] args) throws IOException, XMLStreamException
     {
         //TaskXMLSerializer.test();
-        HTTP.HttpGet(HTTP.xml);
+        //HTTP.HttpGet(HTTP.xml);
+        HTTP.XmlWork();
     }
 }
